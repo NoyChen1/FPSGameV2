@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     bool isMoving;
 
 
-    private Vector3 lastPosition = new Vector3(0f, 0f,0f);
+    private Vector3 lastPosition = new Vector3(0f, 0f, 0f);
     // Start is called before the first frame update
     void Start()
     {
@@ -48,7 +48,7 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(move * speed * Time.deltaTime);
 
         //if the player can jump
-        
+
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
@@ -69,5 +69,4 @@ public class PlayerMovement : MonoBehaviour
 
         lastPosition = gameObject.transform.position;
     }
-    
 }

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MouseMovement : MonoBehaviour
 {
-
     public float mouseSensitivity = 500f;
 
     public float topClamp = -90f;

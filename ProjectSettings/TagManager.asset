@@ -4,7 +4,16 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Ground
   - Target
+  - Wall
+  - Beer
+  - FxTemporaire
+  - Zombie
+  - MilitaryEnv
+  - Enemy
+  - WayPoints
+  - ZombieHand
   layers:
   - Default
   - TransparentFX
@@ -12,7 +21,7 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
+  - WeaponRender
   - 
   - 
   - 
