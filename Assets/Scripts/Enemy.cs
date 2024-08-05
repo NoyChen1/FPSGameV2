@@ -9,9 +9,16 @@ public class Enemy : MonoBehaviour
     private Animator animator;
 
     private NavMeshAgent navAgent;
+    public EnemyState state;
 
-    public bool isDead;
+    //public bool isDead;
     public float deadBodyDelay = 20f;
+
+    public enum EnemyState
+    {
+        None,
+        Dead
+    }
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -36,7 +43,8 @@ public class Enemy : MonoBehaviour
                 animator.SetTrigger("Die2");
             }
 
-            isDead = true;
+            state = EnemyState.Dead;
+            //isDead = true;
 
             //Death sound
             SoundManager.instance.ZombieChannel2.PlayOneShot(SoundManager.instance.ZombieDeath);
@@ -50,7 +58,7 @@ public class Enemy : MonoBehaviour
 
         }
 
-        if (isDead) 
+        if (state == EnemyState.Dead) 
         {
             StartCoroutine(DestroyBody());
         }
@@ -59,7 +67,8 @@ public class Enemy : MonoBehaviour
     private IEnumerator DestroyBody()
     {
         yield return new WaitForSeconds(deadBodyDelay);
-        Destroy(this.gameObject);
+        // Destroy(this.gameObject);
+        ObjectPoolManager.returnObjectToPool(this.gameObject);
     }
 
     private void OnDrawGizmos()

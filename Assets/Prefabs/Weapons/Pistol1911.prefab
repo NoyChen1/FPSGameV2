@@ -72,6 +72,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isActiveWeapon: 0
+  weaponDamage: 0
   isShooting: 0
   readyToShoot: 0
   allowReset: 1
@@ -81,7 +82,7 @@ MonoBehaviour:
   spreadIntensity: 0
   hipSpreadIntensity: 0.4
   ADSSpreadIntensity: 0.04
-  bulletPrefab: {fileID: 1473795040527105072, guid: 3275958145f06584b923570bc8301b78,
+  bulletPrefab: {fileID: 1473795040527105072, guid: ab1be43eaf71f4f45bb55d5d6158601a,
     type: 3}
   bulletSpawn: {fileID: 5053277949930175239}
   bulletVelocity: 300

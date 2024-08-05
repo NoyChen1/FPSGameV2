@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static ObjectPoolManager;
 using Random = UnityEngine.Random;
 
 
@@ -58,7 +59,9 @@ public class ZombieSpawnController : MonoBehaviour
             Vector3 spawnPosition = transform.position + spawnOffset;
 
             //Initiates the zombie
-            var zombie = Instantiate(zombiePrefab, spawnPosition, Quaternion.identity);
+            // var zombie = Instantiate(zombiePrefab, spawnPosition, Quaternion.identity);
+            GameObject zombie = ObjectPoolManager.SpawnObject(zombiePrefab, spawnPosition, Quaternion.identity, ObjectPoolManager.PoolType.Zombie);
+
 
             //Get Enemy script
             Enemy enemyScript = zombie.GetComponent<Enemy>();
@@ -75,7 +78,7 @@ public class ZombieSpawnController : MonoBehaviour
         List<Enemy> zombiesToRemove = new List<Enemy>();
         foreach(Enemy zombie in currentZombiesAlive)
         {
-            if (zombie.isDead)
+            if (zombie.state == Enemy.EnemyState.Dead)
             {
                 GlobalRefrences.instance.zombiesKilled++;
                 ZombiesKilledUI.text = $"Zombies YOU Killed: {GlobalRefrences.instance.zombiesKilled}";
@@ -86,7 +89,7 @@ public class ZombieSpawnController : MonoBehaviour
         //remove all the dead zombies
         foreach (Enemy zombie in zombiesToRemove)
         {
-            if (zombie.isDead)
+            if (zombie.state == Enemy.EnemyState.Dead)
             {
                 currentZombiesAlive.Remove(zombie);
             }

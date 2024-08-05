@@ -107,7 +107,7 @@ public class Throwable : MonoBehaviour
             if(objectInRange.CompareTag("Enemy"))
             {
                 //make sure that dead enemy can't day twice
-                if (!objectInRange.GetComponent<Enemy>().isDead)
+                if (objectInRange.GetComponent<Enemy>().state != Enemy.EnemyState.Dead)
                 {
                     objectInRange.GetComponent<Enemy>().TakeDemage(grenadeDamage);
                 }

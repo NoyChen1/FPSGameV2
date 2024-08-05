@@ -11,22 +11,43 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    public int HP = 100;
-    public GameObject bloodyScreen;
 
+    string nextSceneName = "MainMenuScene";
+
+    [Header("Player's details")]
+    public int HP = 100;
+    private PlayerState state;
+
+
+    [Header("UI")]
     public TextMeshProUGUI playerHealthUI;
     public TextMeshProUGUI zombiesKilledUI;
     public GameObject crossHairUI;
-
     public GameObject GameOverUI;
+    public GameObject bloodyScreen;
 
-    public bool isDead;
-    string nextSceneName = "MainMenuScene";
+    [Header("Components")]
+    public MouseMovement mouseMovement; 
+    public PlayerMovement playerMovement;
+    public Animator animator;
+    public ScreenFader screenFader;
 
+    //public bool isDead;
+
+
+    private enum PlayerState
+    {
+        None,
+        Dead
+    }
 
     private void Start()
     {
         playerHealthUI.text = $"Health: {HP}"; 
+        
+        mouseMovement = GetComponent<MouseMovement>();
+        playerMovement = GetComponent<PlayerMovement>();
+        screenFader = GetComponent<ScreenFader>();
     }
     public void TakeDemage(int damageAmount)
     {
@@ -37,7 +58,8 @@ public class Player : MonoBehaviour
             print("Player Dead");
 
             PlayerDead();
-            isDead = true;
+            state = PlayerState.Dead;
+            //isDead = true;
             SoundManager.instance.PlayerChannel.PlayOneShot(SoundManager.instance.PlayerDeath);
             StartCoroutine(ShowGameOverUI());
             //Game Over
@@ -74,8 +96,10 @@ public class Player : MonoBehaviour
 
     private void PlayerDead()
     {
-        GetComponent<MouseMovement>().enabled = false;
-        GetComponent<PlayerMovement>().enabled = false;
+        //GetComponent<MouseMovement>().enabled = false;
+        //GetComponent<PlayerMovement>().enabled = false;
+        mouseMovement.enabled = false;
+        playerMovement.enabled = false;
 
         //Dying Animation
         GetComponentInChildren<Animator>().enabled = true;
@@ -83,8 +107,8 @@ public class Player : MonoBehaviour
         zombiesKilledUI.gameObject.SetActive(false);
         crossHairUI.gameObject.SetActive(false);
 
-
-        GetComponent<ScreenFader>().StartFade();
+        screenFader.StartFade();
+       // GetComponent<ScreenFader>().StartFade();
 
     }
 
@@ -134,7 +158,8 @@ public class Player : MonoBehaviour
         if (other.CompareTag("ZombieHand"))
         {
             Debug.Log("hit player");
-            if (!isDead)
+            if(state != PlayerState.Dead)
+            //if (!isDead)
             {
                 TakeDemage(other.gameObject.GetComponent<ZombieHand>().damage);
             }

@@ -2,10 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
-public class HUDManager : MonoBehaviour
+public class HUDManager :MonoBehaviour
 {
 
     public static HUDManager instance { get; set; }
@@ -35,6 +37,7 @@ public class HUDManager : MonoBehaviour
     {
         if (instance != null && instance != this)
         {
+
             Destroy(gameObject);
         }
         else
@@ -43,6 +46,8 @@ public class HUDManager : MonoBehaviour
         }
     }
 
+
+    
     private void Update()
     {
         Weapon activeWeapon = WeaponManager.instance.activeWeaponSlot.GetComponentInChildren<Weapon>();
@@ -127,6 +132,7 @@ public class HUDManager : MonoBehaviour
                 return null;
         }
     }
+
 
     internal void UpdateThrowablesUI()
     {

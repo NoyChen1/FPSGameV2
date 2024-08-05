@@ -59,6 +59,8 @@ public class WeaponManager : MonoBehaviour
     {
         foreach (GameObject weaponSlot in weaponSlots)
         {
+            weaponSlot.SetActive(weaponSlot == activeWeaponSlot);
+            /*
             if (weaponSlot == activeWeaponSlot)
             {
                 weaponSlot.SetActive(true);
@@ -66,7 +68,7 @@ public class WeaponManager : MonoBehaviour
             else
             {
                 weaponSlot.SetActive(false);
-            }
+            }*/
         }
 
         if (Input.GetKeyUp(KeyCode.Alpha1))
@@ -91,24 +93,18 @@ public class WeaponManager : MonoBehaviour
 
         //lethals
         //by release the G key it's going to throw the lethal
-        if (Input.GetKeyUp(KeyCode.G))
+        if (Input.GetKeyUp(KeyCode.G) && lethalsCount > 0)
         {
-            if(lethalsCount > 0)
-            {
-                ThrowLethal();
-            }
+            ThrowLethal();
             ForceMultiplier = 0f;
         }
 
 
         //Tactical
         //by release the t key it's going to throw the lethal
-        if (Input.GetKeyUp(KeyCode.T))
+        if (Input.GetKeyUp(KeyCode.T) && tacticalsCount > 0)
         {
-            if (tacticalsCount > 0)
-            {
-                ThrowTactical();
-            }
+            ThrowTactical();
             ForceMultiplier = 0f;
         }
     }
@@ -130,8 +126,8 @@ public class WeaponManager : MonoBehaviour
 
         Weapon weapon = pickedUpWeapon.GetComponent<Weapon>();
 
-        pickedUpWeapon.transform.localPosition = new Vector3(weapon.spawnPosition.x, weapon.spawnPosition.y, weapon.spawnPosition.z);
-        pickedUpWeapon.transform.localRotation = Quaternion.Euler(weapon.spawnRotation.x, weapon.spawnRotation.y, weapon.spawnRotation.z);
+        pickedUpWeapon.transform.localPosition = weapon.spawnPosition;
+        pickedUpWeapon.transform.localRotation = Quaternion.Euler(weapon.spawnPosition);
 
         weapon.isActiveWeapon = true;
         weapon.animator.enabled = true;
@@ -143,8 +139,8 @@ public class WeaponManager : MonoBehaviour
         {
             var weaponToDrop = activeWeaponSlot.transform.GetChild(0).gameObject;
 
-            weaponToDrop.transform.GetComponent<Weapon>().isActiveWeapon = false;
-            weaponToDrop.transform.GetComponent<Animator>().enabled = false;
+            weaponToDrop.GetComponent<Weapon>().isActiveWeapon = false;
+            weaponToDrop.GetComponent<Animator>().enabled = false;
 
             weaponToDrop.transform.SetParent(pickedUpWeapon.transform.parent);
 
@@ -169,6 +165,7 @@ public class WeaponManager : MonoBehaviour
             Weapon newWeapon = activeWeaponSlot.transform.GetChild(0).GetComponent<Weapon>();
             newWeapon.isActiveWeapon = true;
         }
+
     }
 
     #endregion
@@ -188,6 +185,7 @@ public class WeaponManager : MonoBehaviour
             default:
                 return;
         }
+
     }
 
     internal void DecreaseWeaponAmount(int bulletsToDecrease, Weapon.WeaponModel model)
@@ -238,6 +236,7 @@ public class WeaponManager : MonoBehaviour
             default:
                 return;
         }
+
     }
 
     private void PickUpThrowableAsTactical(Throwable.ThrowableType tactical)
@@ -323,6 +322,7 @@ public class WeaponManager : MonoBehaviour
             equippedLethalType = Throwable.ThrowableType.None;
         }
         HUDManager.instance.UpdateThrowablesUI();
+
     }
 
     private GameObject GetThrowablePrefab(Throwable.ThrowableType equippedType)

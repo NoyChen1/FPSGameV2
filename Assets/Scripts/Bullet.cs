@@ -6,20 +6,24 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public int bulletDamage;
+    
     private void OnCollisionEnter(Collision collision)
     {
+        Enemy enemy = collision.gameObject.GetComponent<Enemy>();
         if (collision.gameObject.CompareTag("Target"))
         {
             print("hit " + collision.gameObject.name + " !");
             createBulletImpactEffect(collision);
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            ObjectPoolManager.returnObjectToPool(gameObject);
         }
 
         if (collision.gameObject.CompareTag("Wall"))
         {
             print("hit Wall");
             createBulletImpactEffect(collision);
-            Destroy(gameObject);
+            // Destroy(gameObject);
+            ObjectPoolManager.returnObjectToPool(gameObject);
         }
 
         if (collision.gameObject.CompareTag("Beer"))
@@ -31,19 +35,21 @@ public class Bullet : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy")) 
         {
             print("hit a Zombie");
-            if (!collision.gameObject.GetComponent<Enemy>().isDead)
+            if (enemy.state != Enemy.EnemyState.Dead)
             {
-                collision.gameObject.GetComponent<Enemy>().TakeDemage(bulletDamage);
+                enemy.TakeDemage(bulletDamage);
             }
             CreateBloodSprayEffect(collision);
-            Destroy(gameObject);
+            // Destroy(gameObject);
+            ObjectPoolManager.returnObjectToPool(gameObject);
         }
 
         if (collision.gameObject.CompareTag("MilitaryEnv"))
         {
             print("hit Military Service");
             createBulletImpactEffect(collision);
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            ObjectPoolManager.returnObjectToPool(gameObject);
         }
     }
 

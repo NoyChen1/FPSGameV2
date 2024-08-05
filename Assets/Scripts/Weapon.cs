@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using TMPro;
 using UnityEngine;
+using static ObjectPoolManager;
 
 public class Weapon : MonoBehaviour
 {
@@ -182,8 +183,11 @@ public class Weapon : MonoBehaviour
         readyToShoot = false;
         Vector3 shootingDirection = CalculateDirectionAndSpread().normalized;
 
-        //Instantiate the buller
-        GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity);
+        //Instantiate the bullet
+        // GameObject bullet = Instantiate(bulletPrefab, bulletSpawn.position, Quaternion.identity);
+
+        ObjectPoolManager.PoolType poolType = GetPoolType();
+        GameObject bullet = ObjectPoolManager.SpawnObject(bulletPrefab, bulletSpawn.position, Quaternion.identity, poolType);
 
         Bullet bul = bullet.GetComponent<Bullet>();
         bul.bulletDamage = weaponDamage;
@@ -210,6 +214,19 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    private ObjectPoolManager.PoolType GetPoolType()
+    {
+        ObjectPoolManager.PoolType poolType = ObjectPoolManager.PoolType.None;
+        if (thisWeapon.Equals(WeaponModel.Pistol1911))
+        {
+            poolType = ObjectPoolManager.PoolType.PistolBullet;
+        }
+        else if (thisWeapon.Equals(WeaponModel.Uzi))
+        {
+            poolType = ObjectPoolManager.PoolType.ReifleBullet;
+        }
+        return poolType;
+    }
 
     private void Reload()
     {
@@ -273,6 +290,7 @@ public class Weapon : MonoBehaviour
     private IEnumerator DestroyBulletAfterTime(GameObject bullet, float delay)
     {
         yield return new WaitForSeconds(delay);
-        Destroy(bullet);
+        //Destroy(bullet);
+        ObjectPoolManager.returnObjectToPool(bullet);
     }
 }

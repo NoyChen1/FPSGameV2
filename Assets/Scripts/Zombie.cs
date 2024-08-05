@@ -16,7 +16,7 @@ public class Zombie : MonoBehaviour
     private void Update()
     {
         
-        if (this.GetComponent<Enemy>().isDead)
+        if (this.GetComponent<Enemy>().state == Enemy.EnemyState.Dead)
         {
             ZombieHand.gameObject.SetActive(false);
         }
