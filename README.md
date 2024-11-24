@@ -62,9 +62,6 @@ Hit that Play button and let the fun begin!
 #### Aiming Down Sights (ADS)
 - **Use ADS**: Press the **right mouse button** to aim down sights for better accuracy.
 
-#### Additional Controls
-- **Shift**: Sprint.
-
 ## 🤝 Contributions
 
 Got some awesome ideas? Found a bug? Wanna make FPS Game V2 even more epic? Contributions are always welcome! Feel free to fork the repo, make your changes, and create a pull request.
