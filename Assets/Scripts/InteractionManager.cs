@@ -9,7 +9,10 @@ public class InteractionManager : MonoBehaviour
     public Weapon hoveredWEapon = null;
     public AmmoBox hoveredAmmoBox = null;
     public Throwable hoveredThrowable = null;
-    
+
+    [SerializeField] private float maxDistance = 5f;
+
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -36,7 +39,8 @@ public class InteractionManager : MonoBehaviour
            
             //Weapon
             if (objectHittedByRayCast.GetComponent<Weapon>() && // if we hit a weapon
-                !objectHittedByRayCast.GetComponent<Weapon>().isActiveWeapon) //and it's not an active weapon
+                !objectHittedByRayCast.GetComponent<Weapon>().isActiveWeapon && //and it's not an active weapon
+                Vector3.Distance(Camera.main.transform.position, objectHittedByRayCast.transform.position) <= maxDistance) // close to the player
             {
 
                 //disable the outline from an unselected weapon
@@ -62,7 +66,8 @@ public class InteractionManager : MonoBehaviour
 
 
             //Ammo
-            if (objectHittedByRayCast.GetComponent<AmmoBox>()) //if we hit an AmmoBox
+            if (objectHittedByRayCast.GetComponent<AmmoBox>() && //if we hit an AmmoBox
+                Vector3.Distance(Camera.main.transform.position, objectHittedByRayCast.transform.position) <= maxDistance) // close to the player             
             {
                 //disable the outline from an unselected AmmoBox
                 if (hoveredAmmoBox)
@@ -89,7 +94,8 @@ public class InteractionManager : MonoBehaviour
 
 
             //Throwable
-            if (objectHittedByRayCast.GetComponent<Throwable>()) //if we hit an AmmoBox
+            if (objectHittedByRayCast.GetComponent<Throwable>() && //if we hit an AmmoBox
+                Vector3.Distance(Camera.main.transform.position, objectHittedByRayCast.transform.position) <= maxDistance)// close to the player
             {
 
                 //disable the outline from an unselected Throwable
