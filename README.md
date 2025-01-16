@@ -4,12 +4,12 @@ Welcome to FPS Game V2, an adrenaline-fueled first-person shooter game developed
 
 ## 🎮 Project Overview
 
-### FPS Game V comes packed with:
+### FPS Game comes packed with:
 
-- ⚔️ First-person shooting mechanics that are smooth and responsive.
-- 🌍 Dynamic level design with exciting environments to explore.
-- 🤖 Interactive enemies and obstacles that will test your skills.
-- 🎯 Precision controls for an immersive and rewarding player experience.
+- First-person shooting mechanics that are smooth and responsive.
+- Dynamic level design with exciting environments to explore.
+- Interactive enemies and obstacles that will test your skills.
+- Precision controls for an immersive and rewarding player experience.
 
 ## 🌐 Online
 
@@ -17,24 +17,19 @@ Check out the game online and dive into the action today! [FPS Game V2 on Itch.i
 
 ## 🔥 Key Features
 
-- **🛠️ Weapon System**: Arm yourself with a variety of weapons to take down enemies with style.
-- **🤖 Dynamic Enemy AI**: Battle against intelligent enemies that adapt to your every move.
-- **🎨 Immersive Graphics and Sound**: Stunning visuals and impactful sound effects bring the battlefield to life.
-- **🕹️ User-friendly Controls**: Smooth, intuitive controls for the best gaming experience.
-
-## 🚀 Getting Started
-
-Wanna jump into the action or even tweak the game? Here's how:
-
-Clone the repository:
-
-```bash
-git clone https://github.com/NoyChen1/FPSGameV2.git
-```
-
-Open the project in Unity (tested with Unity version 2021.3.0 or later).
-
-Hit that Play button and let the fun begin!
+- **Modular Components**: The game architecture is heavily based on the **Components Pattern**, where each behavior or functionality is encapsulated in reusable and independent components. This ensures scalability and maintainability.
+  Throwable or Weapon scripts are making every object a weapon or throwable
+  ![ThrowableWeapon](Images/ThrowableWeapon.png)
+  
+- **State Machines**: Player and enemy behaviors are managed using **finite state machines (FSM)**, ensuring smooth transitions between states like idle, attacking, patrolling, and fleeing.
+  Zombie state machine for each of the enemies includes some states like: Attack, Chase, Idle, Patrol. Here is one example of state machine
+  ![StateMachine](Images/StateMachine.png)
+  
+- **Weapon System**: Arm yourself with a variety of weapons to take down enemies with style.
+  Weapon system responsible for pick up, throw and ammo management.
+- **Dynamic Enemy**: Battle against intelligent enemies that adapt to your every move.
+- **Immersive Graphics and Sound**: Stunning visuals and impactful sound effects bring the battlefield to life.
+- **User-friendly Controls**: Smooth, intuitive controls for the best gaming experience.
 
 ## 🎮 Controls
 
@@ -61,13 +56,3 @@ Hit that Play button and let the fun begin!
 
 #### Aiming Down Sights (ADS)
 - **Use ADS**: Press the **right mouse button** to aim down sights for better accuracy.
-
-## 🤝 Contributions
-
-Got some awesome ideas? Found a bug? Wanna make FPS Game V2 even more epic? Contributions are always welcome! Feel free to fork the repo, make your changes, and create a pull request.
-
-## 📬 Contact
-
-Have questions? Got feedback? Reach out via my GitHub profile: [NoyChen1](https://github.com/NoyChen1).
-
-🔥 **Lock, load, and let the battle begin!** Enjoy the game and happy shooting! 🔫
